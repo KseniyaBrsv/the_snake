@@ -93,13 +93,9 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self, position=None, body_color=APPLE_COLOR):
-        """Инициализирует яблоко и задаёт ему случайную позицию."""
-        if position is None:
-            super().__init__(DEFAULT_POSITION, body_color)
-            self.randomize_position()
-        else:
-            super().__init__(position, body_color)
+    def __init__(self, position=DEFAULT_POSITION, body_color=APPLE_COLOR):
+        """Инициализирует яблоко."""
+        super().__init__(position, body_color)
 
     def randomize_position(self, occupied_positions=None):
         """Устанавливает яблоко в случайную свободную клетку игрового поля."""
@@ -173,7 +169,6 @@ class Snake(GameObject):
         self.direction = RIGHT
         self.next_direction = None
         self.last = None
-        screen.fill(BOARD_BACKGROUND_COLOR)
 
 
 def handle_keys(game_object):
@@ -214,6 +209,7 @@ def main():
             snake.length += 1
             apple.randomize_position(snake.positions)
         elif snake.get_head_position() in snake.positions[4:]:
+            screen.fill(BOARD_BACKGROUND_COLOR)
             snake.reset()
             apple.randomize_position(snake.positions)
 
